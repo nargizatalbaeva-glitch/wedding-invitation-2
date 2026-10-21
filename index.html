@@ -1,0 +1,1205 @@
+```html
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8f5ef">
+  <meta name="description" content="Сизди биздин өзгөчө күнүбүзгө арналган үйлөнүү тоюна чакырабыз.">
+  <title>Wedding Invitation | Our Special Day</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ivory: #f8f5ef;
+      --paper: #fffdf9;
+      --gold: #b69a67;
+      --gold-light: #d8c6a0;
+      --ink: #3e3933;
+      --muted: #82796e;
+      --line: #e8dfd0;
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Montserrat", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    body.locked {
+      overflow: hidden;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .serif {
+      font-family: var(--serif);
+      font-weight: 400;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .section {
+      padding: 100px 24px;
+    }
+
+    .container {
+      width: min(100%, 900px);
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      margin-bottom: 44px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin-top: 10px;
+      font-family: var(--serif);
+      font-size: clamp(38px, 7vw, 56px);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      max-width: 450px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 13px;
+      margin: 24px 0;
+      color: var(--gold);
+    }
+
+    .ornament::before,
+    .ornament::after {
+      width: 50px;
+      height: 1px;
+      background: var(--gold-light);
+      content: "";
+    }
+
+    /* OPENING ENVELOPE */
+
+    .intro {
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at center, #fffdf9 0%, #f8f5ef 68%, #eee5d6 100%);
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+    }
+
+    .intro.hidden {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .intro-content {
+      width: min(90%, 430px);
+      text-align: center;
+    }
+
+    .intro-kicker {
+      margin-bottom: 22px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .intro-title {
+      margin-bottom: 35px;
+      font-family: var(--serif);
+      font-size: clamp(39px, 10vw, 57px);
+      font-weight: 400;
+      line-height: 1.08;
+    }
+
+    .envelope-button {
+      position: relative;
+      display: block;
+      width: min(100%, 330px);
+      margin: 0 auto;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .envelope {
+      position: relative;
+      height: 210px;
+      overflow: hidden;
+      background: #e9dfcf;
+      box-shadow: 0 18px 55px rgb(91 73 48 / 12%);
+      perspective: 800px;
+    }
+
+    .envelope-paper {
+      position: absolute;
+      z-index: 1;
+      inset: 13px 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--paper);
+      transition: transform 1s ease 0.2s;
+    }
+
+    .envelope-paper .mini-label {
+      color: var(--gold);
+      font-size: 8px;
+      letter-spacing: 3px;
+    }
+
+    .envelope-paper .mini-names {
+      margin: 6px 0;
+      font-family: var(--serif);
+      font-size: 36px;
+      line-height: 1.1;
+    }
+
+    .envelope-paper .mini-date {
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .envelope-pocket {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      background: linear-gradient(145deg, #eee4d4, #d9c9af);
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      z-index: 4;
+      inset: 0 0 auto;
+      height: 62%;
+      background: linear-gradient(155deg, #f3e9da, #e0d0b8);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 0.8s ease;
+    }
+
+    .envelope-seal {
+      position: absolute;
+      z-index: 5;
+      top: 46%;
+      left: 50%;
+      display: grid;
+      width: 43px;
+      height: 43px;
+      place-items: center;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgb(255 255 255 / 65%);
+      border-radius: 50%;
+      background: var(--gold);
+      color: white;
+      font-family: var(--serif);
+      font-size: 23px;
+      transition: opacity 0.3s ease;
+    }
+
+    .envelope-button.opening .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-button.opening .envelope-paper {
+      transform: translateY(-75px);
+    }
+
+    .envelope-button.opening .envelope-seal {
+      opacity: 0;
+    }
+
+    .open-hint {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: breathe 2.5s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.55; }
+      50% { opacity: 1; }
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      display: flex;
+      min-height: 100svh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 24px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border: 1px solid rgb(182 154 103 / 16%);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -190px;
+      left: -160px;
+    }
+
+    .hero::after {
+      right: -180px;
+      bottom: -190px;
+    }
+
+    .hero-top {
+      margin-bottom: 32px;
+    }
+
+    .hero-photo-wrap {
+      position: relative;
+      width: min(100%, 350px);
+      height: clamp(300px, 68vw, 430px);
+      margin: 0 auto 30px;
+      padding: 9px;
+      border: 1px solid var(--gold-light);
+    }
+
+    .hero-photo {
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-photo-wrap::after {
+      position: absolute;
+      inset: 17px;
+      border: 1px solid rgb(255 255 255 / 65%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero-names {
+      font-family: var(--serif);
+      font-size: clamp(53px, 12vw, 86px);
+      font-weight: 400;
+      line-height: 0.98;
+    }
+
+    .hero-ampersand {
+      display: block;
+      margin: 4px 0;
+      color: var(--gold);
+      font-size: 0.65em;
+      font-style: italic;
+    }
+
+    .hero-date {
+      margin-top: 25px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 5px;
+    }
+
+    .hero-caption {
+      max-width: 350px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .scroll-cue {
+      margin-top: 35px;
+      color: var(--gold);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* STORY */
+
+    .story {
+      background: var(--paper);
+      text-align: center;
+    }
+
+    .story-text {
+      max-width: 580px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-family: var(--serif);
+      font-size: 23px;
+      line-height: 1.8;
+    }
+
+    /* DETAILS */
+
+    .details {
+      text-align: center;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .detail-card {
+      padding: 35px 20px;
+      border: 1px solid var(--line);
+      background: rgb(255 253 249 / 65%);
+    }
+
+    .detail-icon {
+      margin-bottom: 12px;
+      color: var(--gold);
+      font-family: var(--serif);
+      font-size: 32px;
+    }
+
+    .detail-card h3 {
+      margin-bottom: 10px;
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .detail-card p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    .countdown {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(15px, 5vw, 40px);
+      margin-top: 55px;
+    }
+
+    .count-item {
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .count-number {
+      display: block;
+      color: var(--gold);
+      font-family: var(--serif);
+      font-size: clamp(36px, 8vw, 52px);
+      line-height: 1.1;
+    }
+
+    .count-label {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* GALLERY */
+
+    .gallery {
+      background: var(--paper);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      padding: 0;
+      border: none;
+      background: var(--ivory);
+      cursor: zoom-in;
+    }
+
+    .gallery-item:first-child {
+      grid-column: 1 / -1;
+    }
+
+    .gallery-item img {
+      height: 100%;
+      min-height: 190px;
+      max-height: 280px;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .gallery-item:first-child img {
+      height: 420px;
+      max-height: 65vw;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.04);
+    }
+
+    /* LOCATION */
+
+    .location-card {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 42px 25px;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .location-card h3 {
+      margin: 12px 0;
+      font-family: var(--serif);
+      font-size: 34px;
+      font-weight: 400;
+    }
+
+    .location-card p {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .outline-button {
+      display: inline-flex;
+      min-height: 45px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--ink);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+
+    .outline-button:hover {
+      background: var(--gold);
+      color: white;
+    }
+
+    /* RSVP */
+
+    .rsvp {
+      background: #f0e9dd;
+    }
+
+    .rsvp-form {
+      display: grid;
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid #ddd0bc;
+      border-radius: 0;
+      outline: none;
+      background: var(--paper);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+    }
+
+    .form-field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .rsvp-form .outline-button {
+      width: 100%;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .form-status {
+      display: none;
+      padding: 14px;
+      border: 1px solid var(--gold-light);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      padding: 75px 24px;
+      background: #e9dfcf;
+      text-align: center;
+    }
+
+    .footer-names {
+      margin: 14px 0;
+      font-family: var(--serif);
+      font-size: clamp(42px, 10vw, 62px);
+      line-height: 1.1;
+    }
+
+    .footer p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-date {
+      margin-top: 22px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 4px;
+    }
+
+    /* IMAGE LIGHTBOX */
+
+    .lightbox {
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgb(25 22 18 / 92%);
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      width: auto;
+      max-width: 100%;
+      max-height: 85svh;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 15px;
+      right: 22px;
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 35px;
+      cursor: pointer;
+    }
+
+    /* SCROLL REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .section {
+        padding: 75px 20px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 70px 20px 85px;
+      }
+
+      .hero-photo-wrap {
+        height: 340px;
+      }
+
+      .detail-grid {
+        gap: 10px;
+      }
+
+      .detail-card {
+        padding: 25px 12px;
+      }
+
+      .detail-card h3 {
+        font-size: 24px;
+      }
+
+      .gallery-grid {
+        gap: 9px;
+      }
+
+      .gallery-item img {
+        min-height: 155px;
+      }
+
+      .gallery-item:first-child img {
+        height: 300px;
+      }
+
+      .story-text {
+        font-size: 21px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="locked">
+
+  <!-- ENVELOPE INTRO -->
+  <section class="intro" id="intro" aria-label="Чакыруу конверти">
+    <div class="intro-content">
+      <p class="intro-kicker">You are invited to celebrate</p>
+
+      <h1 class="intro-title">
+        A day to<br>remember
+      </h1>
+
+      <button class="envelope-button" id="openInvitation"
+              aria-label="Үйлөнүү чакыруусун ачуу">
+        <div class="envelope">
+          <div class="envelope-paper">
+            <span class="mini-label">THE WEDDING OF</span>
+            <span class="mini-names">N & A</span>
+            <span class="mini-date">15 · 08 · 2027</span>
+          </div>
+          <div class="envelope-pocket"></div>
+          <div class="envelope-flap"></div>
+          <div class="envelope-seal">N</div>
+        </div>
+      </button>
+
+      <p class="open-hint">Click to open the invitation</p>
+    </div>
+  </section>
+
+  <main id="invitation">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-top">
+        <p class="eyebrow">Together with our families</p>
+      </div>
+
+      <div class="hero-photo-wrap reveal">
+        <!-- Өзүңдүн сүрөтүңө алмаштыр -->
+        <img
+          class="hero-photo"
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=85"
+          alt="Жубайлардын үйлөнүү сүрөтү"
+          fetchpriority="high"
+        >
+      </div>
+
+      <div class="reveal">
+        <p class="eyebrow">We are getting married</p>
+
+        <h2 class="hero-names">
+          Nargiza
+          <span class="hero-ampersand">&</span>
+          Azamat
+        </h2>
+
+        <p class="hero-date">15 · AUGUST · 2027</p>
+
+        <div class="ornament">✧</div>
+
+        <p class="hero-caption">
+          Биздин жашообуздагы өзгөчө күндү сиздер менен
+          бирге белгилөөнү каалайбыз.
+        </p>
+
+        <a href="#details" class="scroll-cue">Discover our invitation ↓</a>
+      </div>
+    </section>
+
+    <!-- OUR STORY -->
+    <section class="section story">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Our story</p>
+          <h2 class="serif">Эки жүрөк,<br>бир тагдыр</h2>
+          <div class="ornament">♡</div>
+        </div>
+
+        <p class="story-text">
+          Кээ бир жолугушуулар кокустук эмес.
+          Биздин окуябыз да эки жүрөктүн жолугушуусунан
+          башталып, бүгүн өмүр бою бирге баса турган
+          жолго айланды.
+          Сиздерди биздин кубанычыбызга күбө болууга чакырабыз.
+        </p>
+      </div>
+    </section>
+
+    <!-- WEDDING DETAILS -->
+    <section class="section details" id="details">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Save the date</p>
+          <h2>Өзгөчө күнүбүз</h2>
+          <p>Сиздерди майрамыбызда көрүүнү чыдамсыздык менен күтөбүз.</p>
+        </div>
+
+        <div class="detail-grid reveal">
+          <article class="detail-card">
+            <div class="detail-icon">♡</div>
+            <h3>Качан?</h3>
+            <p>15-август, 2027-жыл</p>
+            <p>Жекшемби</p>
+            <p>17:00</p>
+          </article>
+
+          <article class="detail-card">
+            <div class="detail-icon">⌖</div>
+            <h3>Кайда?</h3>
+            <p>Ресторандын аталышы</p>
+            <p>Бишкек шаары</p>
+            <p>Так дарек төмөндө</p>
+          </article>
+        </div>
+
+        <div class="countdown reveal" aria-label="Тойго калган убакыт">
+          <div class="count-item">
+            <span class="count-number" id="days">000</span>
+            <span class="count-label">Күн</span>
+          </div>
+          <div class="count-item">
+            <span class="count-number" id="hours">00</span>
+            <span class="count-label">Саат</span>
+          </div>
+          <div class="count-item">
+            <span class="count-number" id="minutes">00</span>
+            <span class="count-label">Мүнөт</span>
+          </div>
+          <div class="count-item">
+            <span class="count-number" id="seconds">00</span>
+            <span class="count-label">Секунд</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTO GALLERY -->
+    <section class="section gallery">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Our memories</p>
+          <h2>Сүйүү баяныбыз</h2>
+          <p>Биздин эң кооз көз ирмемдерибиз.</p>
+        </div>
+
+        <div class="gallery-grid reveal">
+          <button class="gallery-item" type="button"
+                  aria-label="Биринчи сүрөттү чоңойтуу">
+            <img
+              src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85"
+              alt="Үйлөнүү фотосессиясы"
+              loading="lazy"
+            >
+          </button>
+
+          <button class="gallery-item" type="button"
+                  aria-label="Экинчи сүрөттү чоңойтуу">
+            <img
+              src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=85"
+              alt="Романтикалуу көз ирмем"
+              loading="lazy"
+            >
+          </button>
+
+          <button class="gallery-item" type="button"
+                  aria-label="Үчүнчү сүрөттү чоңойтуу">
+            <img
+              src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=800&q=85"
+              alt="Жубайлардын сүрөтү"
+              loading="lazy"
+            >
+          </button>
+
+          <button class="gallery-item" type="button"
+                  aria-label="Төртүнчү сүрөттү чоңойтуу">
+            <img
+              src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=85"
+              alt="Жубайлардын романтикалуу фотосессиясы"
+              loading="lazy"
+            >
+          </button>
+
+          <button class="gallery-item" type="button"
+                  aria-label="Бешинчи сүрөттү чоңойтуу">
+            <img
+              src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=800&q=85"
+              alt="Майрамдык көз ирмем"
+              loading="lazy"
+            >
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="section">
+      <div class="container reveal">
+        <div class="section-heading">
+          <p class="eyebrow">Location</p>
+          <h2>Сиздерди күтөбүз</h2>
+        </div>
+
+        <div class="location-card">
+          <p class="eyebrow">Wedding venue</p>
+          <h3>Ресторандын аталышы</h3>
+          <p>
+            Бишкек шаары<br>
+            Бул жерге ресторандын толук дарегин жазыңыз.
+          </p>
+
+          <!-- Google Maps шилтемесин алмаштыр -->
+          <a
+            class="outline-button"
+            href="https://www.google.com/maps"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Картаны ачуу ↗
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section class="section rsvp">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Kindly respond</p>
+          <h2>Сиз келесизби?</h2>
+          <p>
+            Катыша аларыңызды ырастаңыз.
+            Сиздин жообуңуз биз үчүн маанилүү.
+          </p>
+        </div>
+
+        <form class="rsvp-form reveal" id="rsvpForm">
+          <div class="form-field">
+            <label for="guestName">АТЫҢЫЗ, ЖӨНҮҢҮЗ</label>
+            <input
+              id="guestName"
+              name="name"
+              type="text"
+              placeholder="Атыңызды жазыңыз"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="form-field">
+            <label for="attendance">КАТЫША АЛАСЫЗБЫ?</label>
+            <select id="attendance" name="attendance" required>
+              <option value="">Тандаңыз</option>
+              <option value="Ооба, катышам">Ооба, сөзсүз келем</option>
+              <option value="Жок, катыша албайм">Тилекке каршы, келе албайм</option>
+            </select>
+          </div>
+
+          <div class="form-field" id="guestCountField">
+            <label for="guestCount">КАНЧА АДАМ БОЛУП КЕЛЕСИЗ?</label>
+            <select id="guestCount" name="guests">
+              <option value="1">1 адам</option>
+              <option value="2">2 адам</option>
+              <option value="3">3 адам</option>
+              <option value="4">4 адам</option>
+              <option value="5">5 адам</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="guestMessage">КААЛОО-ТИЛЕГИҢИЗ (МИЛДЕТТҮҮ ЭМЕС)</label>
+            <textarea
+              id="guestMessage"
+              name="message"
+              placeholder="Жубайларга каалоо-тилегиңиз..."
+            ></textarea>
+          </div>
+
+          <button class="outline-button" type="submit">
+            Жоопту жөнөтүү ↗
+          </button>
+
+          <p class="form-note">
+            Бул демо-форма. Жооптор серверге жөнөтүлбөйт.
+          </p>
+
+          <div class="form-status" id="formStatus" role="status"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p class="eyebrow">With love</p>
+
+      <div class="footer-names">Nargiza & Azamat</div>
+
+      <p>Биздин кубанычыбызды тең бөлүшкөнүңүз үчүн рахмат.</p>
+
+      <div class="footer-date">15 · 08 · 2027</div>
+
+      <div class="ornament">♡</div>
+    </footer>
+
+  </main>
+
+  <!-- GALLERY LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog"
+       aria-modal="true" aria-label="Сүрөттү чоң көрүү">
+    <button class="lightbox-close" id="closeLightbox"
+            aria-label="Жабуу">&times;</button>
+    <img id="lightboxImage" src="" alt="Чоңойтулган сүрөт">
+  </div>
+
+  <script>
+    // ENVELOPE OPENING
+    const intro = document.getElementById("intro");
+    const openButton = document.getElementById("openInvitation");
+
+    openButton.addEventListener("click", () => {
+      if (openButton.classList.contains("opening")) return;
+
+      openButton.classList.add("opening");
+
+      window.setTimeout(() => {
+        intro.classList.add("hidden");
+        document.body.classList.remove("locked");
+      }, 1100);
+    });
+
+    // WEDDING COUNTDOWN
+    // Датаны жана убакытты бул жерден өзгөртүңүз.
+    // Убакыт Бишкектин UTC+6 убакыт алкагында берилет.
+    const weddingDate = new Date("2027-08-15T17:00:00+06:00").getTime();
+
+    function updateCountdown() {
+      const remaining = weddingDate - Date.now();
+
+      if (remaining <= 0) {
+        document.getElementById("days").textContent = "000";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((remaining / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((remaining / (1000 * 60)) % 60);
+      const seconds = Math.floor((remaining / 1000) % 60);
+
+      document.getElementById("days").textContent =
+        String(days).padStart(3, "0");
+
+      document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+      document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+      document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+
+    // SCROLL ANIMATIONS
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+    }
+
+    // GALLERY LIGHTBOX
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightboxImage");
+    const closeLightbox = document.getElementById("closeLightbox");
+
+    document.querySelectorAll(".gallery-item").forEach(button => {
+      button.addEventListener("click", () => {
+        const image = button.querySelector("img");
+
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add("active");
+        document.body.classList.add("locked");
+        closeLightbox.focus();
+      });
+    });
+
+    function hideLightbox() {
+      lightbox.classList.remove("active");
+      document.body.classList.remove("locked");
+      lightboxImage.src = "";
+    }
+
+    closeLightbox.addEventListener("click", hideLightbox);
+
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) hideLightbox();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && lightbox.classList.contains("active")) {
+        hideLightbox();
+      }
+    });
+
+    // RSVP DEMO FORM
+    // Маалыматтар серверге же Telegram'га жөнөтүлбөйт.
+    const rsvpForm = document.getElementById("rsvpForm");
+    const attendance = document.getElementById("attendance");
+    const guestCountField = document.getElementById("guestCountField");
+    const guestCount = document.getElementById("guestCount");
+    const formStatus = document.getElementById("formStatus");
+
+    function updateGuestCountVisibility() {
+      const attending = attendance.value === "Ооба, катышам";
+
+      guestCountField.hidden = attendance.value !== "" && !attending;
+      guestCount.required = attending;
+
+      if (!attending) {
+        guestCount.required = false;
+      }
+    }
+
+    attendance.addEventListener("change", updateGuestCountVisibility);
+    updateGuestCountVisibility();
+
+    rsvpForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (!rsvpForm.reportValidity()) return;
+
+      formStatus.style.display = "block";
+      formStatus.textContent =
+        "Бул демо-форма. Жооп кабыл алынган жок. Форманы иштетүү үчүн маалымат сактоочу кызматты туташтыруу керек.";
+    });
+  </script>
+</body>
+</html>
+```
